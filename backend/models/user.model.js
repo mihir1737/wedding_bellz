@@ -3,9 +3,9 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
-  username: {
+  email: {
     type: String,
-    required: true,
+    required: true, 
     unique: true,
     dropDups: true,
     trim: true

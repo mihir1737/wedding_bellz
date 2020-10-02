@@ -42,35 +42,35 @@ class Home extends Component {
                             <div className="col-lg-4 col-md-6 col-sm-6">
                                 <div className="services__item">
                                     <img src={require("./img/icon/camera.png")} alt="" />
-                                    <a href="./p&v.html"><h4>Photos & Video</h4></a>
+                                    <a href="/services/photographer"><h4>Photos & Video</h4></a>
                                     <p>Photographer,Cinema/Video,Pre-Wedding.</p>
                                 </div>
                             </div>
                             <div className="col-lg-4 col-md-6 col-sm-6">
                                 <div className="services__item">
                                     <img src={require("./img/icon/makeup.png")} alt="" />
-                                    <a href="./makeup.html"><h4>Makeup</h4></a>
+                                    <a href="/services/makeup"><h4>Makeup</h4></a>
                                     <p>Bridal Makeup,Family Makeup.</p>
                                 </div>
                             </div>
                             <div className="col-lg-4 col-md-6 col-sm-6">
                                 <div className="services__item">
                                     <img src={require("./img/icon/review.png")} alt="" />
-                                    <a href="./Destination.html"><h4>Destination</h4></a>
+                                    <a href="./services/venue"><h4>Destination</h4></a>
                                     <p>Banquet Hall,Resort.</p>
                                 </div>
                             </div>
                             <div className="col-lg-4 col-md-6 col-sm-6">
                                 <div className="services__item">
                                     <img src={require("./img/icon/bride.png")} alt="" />
-                                    <a href="./bride.html"><h4>Bridal Wear</h4></a>
+                                    <a href="./services/bridalwear"><h4>Bridal Wear</h4></a>
                                     <p>Lenghas,Saree.</p>
                                 </div>
                             </div>
                             <div className="col-lg-4 col-md-6 col-sm-6">
                                 <div className="services__item">
                                     <img src={require("./img/icon/suit.png")} alt="" />
-                                    <a href="./groom.html"><h4>Groom Wear</h4></a>
+                                    <a href="./services/groomwear"><h4>Groom Wear</h4></a>
                                     <p>Sherwani,Tuxes.</p>
                                 </div>
                             </div>

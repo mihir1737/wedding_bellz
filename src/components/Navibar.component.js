@@ -13,11 +13,11 @@ class Navibar extends Component {
             {/* <Nav.Link href="#features">Services</Nav.Link>
             <Nav.Link href="#pricing">Pricing</Nav.Link> */}
             <NavDropdown title="Services" id="collasible-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">Photographers</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">Venue</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Bridal Wear</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.4">Groom Wear</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.5">Makeup</NavDropdown.Item>
+              <NavDropdown.Item href="/services/photographer">Photographers</NavDropdown.Item>
+              <NavDropdown.Item href="/services/venue">Venue</NavDropdown.Item>
+              <NavDropdown.Item href="/services/bridalwear">Bridal Wear</NavDropdown.Item>
+              <NavDropdown.Item href="/services/groomwear">Groom Wear</NavDropdown.Item>
+              <NavDropdown.Item href="/services/makeup">Makeup</NavDropdown.Item>
             </NavDropdown>
           </Nav>
           <Nav>

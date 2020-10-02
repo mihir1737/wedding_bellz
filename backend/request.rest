@@ -1,7 +1,19 @@
 GET http://localhost:8000/ 
 
 ###
-GET http://localhost:8000/services
+GET http://localhost:8000/service
+
+###
+GET  http://localhost:8000/service/destination
+
+###
+POST http://localhost:8000/service/bridalwear
+Content-Type: application/json 
+
+{
+	"Name":"Mp",
+	"City":"Jhalod"
+}
 
 ###
 POST http://localhost:8000/register
@@ -19,5 +31,5 @@ Content-Type: application/json
 
 {
 	"email":"my@site.com",
-	"password":"abc@12"
+	"password":"abc@123"
 }

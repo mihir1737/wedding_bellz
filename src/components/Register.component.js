@@ -17,7 +17,7 @@ class Register extends Component {
             password: "",
             city: "",
             gender: "",
-            message:"",
+            message: "",
             errorMessage: ""
         }
     }
@@ -36,6 +36,12 @@ class Register extends Component {
             password: event.target.value
         })
     }
+    onChangeMobileNo(event) {
+        this.setState({
+            mobileNo: event.target.value
+        })
+    }
+
     onChangeCity(event) {
         this.setState({
             city: event.target.value
@@ -46,7 +52,7 @@ class Register extends Component {
             gender: event.target.value
         })
     }
-    onSubmit(event) {   
+    onSubmit(event) {
         event.preventDefault();
         const user = {
             name: this.state.name,
@@ -57,19 +63,20 @@ class Register extends Component {
         }
         axios.post('http://localhost:8000/register', user)
             .then(
-                res => { console.log('Response arrived'); console.log(res.data) 
-                this.setState({
-                    message:"Successfully registerd.",
-                    errorMessage:""
-                })    
-            }
+                res => {
+                    console.log('Response arrived'); console.log(res.data)
+                    this.setState({
+                        message: "Successfully registerd.",
+                        errorMessage: ""
+                    })
+                }
             )
             .catch(error => {
                 console.log(error)
                 this.setState(
                     {
-                        message:"",
-                        errorMessage: "Username Already available"
+                        message: "",
+                        errorMessage: "Email Already available"
                     })
             })
 
@@ -130,13 +137,13 @@ class Register extends Component {
 
                     <hr />
                     <p>By creating an account you agree to our <a href="/register">Terms & Privacy</a>.</p>
-                    <br/>
+                    <br />
                     {this.state.errorMessage && <h5 className="error" style={{ color: 'red' }}> {this.state.errorMessage} </h5>}
                     {this.state.message && <h5 className="error" style={{ color: 'green' }}> {this.state.message} </h5>}
                     <div className="form-group">
                         <button type="submit" value="Register" className="btn btn-primary">Register</button>
                     </div>
-                       
+
                 </div>
 
                 <div className="container signin">
