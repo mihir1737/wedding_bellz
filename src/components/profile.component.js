@@ -12,6 +12,7 @@ class Profile extends Component {
         this.onSubmit = this.onSubmit.bind(this);
         this.onChangeEdit = this.onChangeEdit.bind(this);
 
+        if(localStorage.getItem('user')==null)
         this.state = {
             name: "",
             email: "",
@@ -19,6 +20,16 @@ class Profile extends Component {
             gender: "",
             edit: true,
             errorMessage: ""
+        }
+        else
+        {
+            const user=JSON.parse(localStorage.getItem('user'))
+            this.state={
+                name:user.name,
+                email:user.email,
+                city:user.city,
+                gender:user.gender, ////////////////////////////update it....
+            }
         }
     }
     onChangeEdit(event) {
@@ -61,11 +72,17 @@ class Profile extends Component {
             city: this.state.city,
             gender: this.state.gender
         }
-        axios.post('http://localhost:8000/register', user)
+        const auth=JSON.parse(localStorage.getItem('user'));
+        
+        axios.post('http://localhost:8000/service/groomwear',
+        {
+            user,
+            auth
+        }
+        )
             .then(
                 res => {
-                    console.log('Response arrived'); console.log(res.data)
-                    window.location = '/login'
+                    console.log('Response arrived'); console.log(res)
                 }
             )
             .catch(error => {

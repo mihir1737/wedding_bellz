@@ -9,6 +9,9 @@ router.use('/bridalwear', bridalRouter)
 const groomRouter = require('./services/groomwear');
 router.use('/groomwear', groomRouter)
 
+const photoRouter = require('./services/photographer');
+router.use('/photograph', photoRouter)
+
 const destinationRouter = require('./services/destination');
 router.use('/destination', destinationRouter)
 

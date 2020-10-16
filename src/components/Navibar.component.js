@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
 import "bootstrap/dist/css/bootstrap.css"
-import { Nav, Navbar, NavDropdown } from 'react-bootstrap'
+import { Nav, Navbar, NavDropdown ,Button} from 'react-bootstrap'
 
 class Navibar extends Component {
+  logout(){
+    localStorage.removeItem('user')
+    window.location = '/'
+  }
+  
   render() {
     return (
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
@@ -20,11 +25,17 @@ class Navibar extends Component {
               <NavDropdown.Item href="/services/makeup">Makeup</NavDropdown.Item>
             </NavDropdown>
           </Nav>
+          {localStorage.getItem('user')===null?
           <Nav>
             <Nav.Link href="/register">Register</Nav.Link>
             <Nav.Link eventKey={2} href="/login">Login</Nav.Link>
-            <Nav.Link href="/profile">profile</Nav.Link>
           </Nav>
+          :
+          <Nav>
+          <Nav.Link href="/profile">{JSON.parse(localStorage.getItem('user')).name}'s profile</Nav.Link>
+          <Button onClick={this.logout} >Logout</Button>
+          </Nav>
+  }
         </Navbar.Collapse>
       </Navbar>
     );

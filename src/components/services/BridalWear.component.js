@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import Card from './CardUI'
 class BridalWear extends Component {
     constructor(props) {
         super(props)
@@ -9,26 +10,35 @@ class BridalWear extends Component {
         }
     }
     componentDidMount() {
-        axios.get('http://localhost:8000/service/destination')
-            .then(res => {
-                if (res.data.length > 0) {
-                    const arr = res.data
-                    console.log(arr)
-                    const fetched = arr.map(d => <div>
-                        <p>{d.Name}</p>
-                        <p>{d.City}</p>
-                    </div>)
+        this.getData();
+    }
+    getData() {
+        axios.get('http://localhost:8000/service/bridalwear')
+            .then(
+                res => {
                     this.setState({
-                        data: fetched
+                        data: res.data
                     })
                 }
+            )
+            .catch(error => {
+                console.log(error)
+                this.setState(
+                    {
+                        errorMessage: "Something went wrong,Please try again."
+                    })
             })
     }
     render() {
         return (
-            <div>
-                <h2>Jay Hind</h2>
-                {this.state.data}
+            <div className='container-fluid d-flex justify-content-center'>
+                <div className='row'>
+                    {
+                        this.state.data.map((item) => {
+                            return <div className='col-md-4'><Card props={item}></Card></div>
+                        })
+                    }
+                </div>
             </div>
         )
     }

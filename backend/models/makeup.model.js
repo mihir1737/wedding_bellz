@@ -11,7 +11,7 @@ const MakeUpSchema = new Schema({
     Price: { type: String },
     Address: { type: String }
 },{
-    collection:'Make Up'
+    collection:'Make up'
 });
 
 const MakeUp = mongoose.model('MakeUp', MakeUpSchema);

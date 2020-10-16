@@ -1,0 +1,12 @@
+.grid{
+    width: 500px;
+    min-height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    margin:20px;
+}
+
+.grid > * {
+    flex: 0 0 33.33;
+}

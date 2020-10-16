@@ -1,7 +1,7 @@
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
 }
-let User = require('./models/user.model')
+const User = require('./models/user.model')
 const express = require('express')
 const app = express()
 const bcrypt = require('bcrypt')
@@ -18,7 +18,6 @@ initializePassport(
   passport
 )
 app.use(express.json())
-app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: false }))
 app.use(flash()) //////////////////////??????????????????????????????????
 app.use(session({
@@ -45,7 +44,7 @@ app.use('/service', serviceRouter)
 
 app.post('/register', async (req, res) => {
   try {
-    
+
     const hashedPassword = await bcrypt.hash(req.body.password, 10)
     const name = req.body.name
     const email = req.body.email
@@ -61,13 +60,13 @@ app.post('/register', async (req, res) => {
       password,
       usertype
     })
-    
+
     newUser.save()
-      .then(()=>{
+      .then(() => {
         res.json('successful registeration')
       })
-      .catch(err=>{
-        res.status(400).json('Error:'+err)
+      .catch(err => {
+        res.status(400).json('Error:' + err)
       });
   }
   catch {
@@ -75,40 +74,25 @@ app.post('/register', async (req, res) => {
   }
 }
 )
-/////////////////////////////////////
-app.get('/', checkAuthenticated, (req, res) => {
-  res.render('index.ejs')
-})
-app.get('/register', checkNotAuthencticated, (req, res) => {
-  res.render('register.ejs')
-})
-app.get('/login', checkNotAuthencticated, (req, res) => {
-  res.render('login.ejs')
-})
-/////////////////////////////
 app.post('/login',
   passport.authenticate('local', {
     failureFlash: true
   }),
-  (req, res) => {
-    res.sendStatus(200)
-    
+  async (req, res) => {
+    console.log(req)
+    User.findOne({ email: req.body.email })
+      .then(user => {
+        res.json({
+          "email": user.email,
+          "name" : user.name,
+          "city":user.city,
+          "gender":user.gender,
+        })
+    res.status(200)
+      })
   }
 )
 
-function checkAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) {
-    return next()
-  }
-  res.redirect('/login')
-} 
-
-function checkNotAuthencticated(req, res, next) {
-  if (req.isAuthenticated()) {
-    return res.redirect('/');
-  }
-  return next();
-}
 app.listen(8000, () => {
   console.log('Server is runngin on port number 8000.');
 })

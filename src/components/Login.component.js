@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component,Redirect } from 'react'
 import axios from 'axios'
 
 class Login extends Component {
@@ -10,7 +10,7 @@ class Login extends Component {
         this.state = {
             email: "",
             password: "",
-            message:"",
+            message: "",
             errorMessage: ""
         }
     }
@@ -30,13 +30,16 @@ class Login extends Component {
             email: this.state.email,
             password: this.state.password
         }
+        
         axios.post('http://localhost:8000/login', user)
             .then(res => {
-                console.log(res);
+                console.log(res.data);
+                localStorage.setItem('user', JSON.stringify(res.data))
                 this.setState({
-                    message:'Successfull log in',
-                    errorMessage:""
+                    message: 'Successfull log in'
                 })
+                document.cookie='user=apxmfknb45mk6n4kp5nkl2mg2pcw'
+                    window.location = '/' 
             }
             )
             .catch(error => {
@@ -45,13 +48,13 @@ class Login extends Component {
                     this.setState(
                         {
                             errorMessage: "Invalid Email Id or Password",
-                            message:""
+                            message: ""
                         })
                 else {
                     this.setState(
                         {
                             errorMessage: "Something went wrong,Please try again.",
-                            message:""
+                            message: ""
                         })
                 }
             }
@@ -85,7 +88,7 @@ class Login extends Component {
                         </div>
                         {this.state.errorMessage && <h5 className="error" style={{ color: 'red' }}> {this.state.errorMessage} </h5>}
                         {this.state.message && <h5 style={{ color: 'green' }}> {this.state.message} </h5>}
-                        
+
                         <div className="form-group">
                             <button type="submit" value="Login" className="btn btn-primary">Login</button>
                         </div>
