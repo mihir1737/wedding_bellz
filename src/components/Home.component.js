@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Helmet } from "react-helmet";
 import 'bootstrap/dist/css/bootstrap.css'
-import {Row,Col} from 'react-bootstrap'
 
 
 class Home extends Component {
@@ -13,8 +12,19 @@ class Home extends Component {
                     <meta name="description" content="Wedding Bellz" />
                     <title>Wedding Bellz</title>
 
-                </Helmet>
-                <Row>
+                </Helmet
+                >
+                <div>
+                    <div className="full-width-image" style={{width:'100%'}}>
+                        <img src={require("./img/home.jpg")} alt="" />
+                    </div>
+
+                    {/* Our services */}
+                    <div className="text-center mt-9">
+                        <img src={require("./img/services.png")} alt="" />
+                    </div>
+                </div>
+                {/* <Row>
                     <Col><img src={require("./img/logo1.png")} alt="" /> </Col>
                     <Col>
                         <div className="container-fluid">
@@ -26,18 +36,18 @@ class Home extends Component {
                             </div>
                         </div>
                     </Col>
-                </Row>
+                </Row> */}
 
                 <section className="services spad">
                     <div className="container">
-                        <div className="row">
+                        {/* <div className="row">
                             <div className="col-lg-12">
                                 <div className="section-title">
                                     <h2>Our services</h2>
                                     <img src={require("./img/icon/ti.png")} alt="" />
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
                         <div className="row">
                             <div className="col-lg-4 col-md-6 col-sm-6">
                                 <div className="services__item">
@@ -72,6 +82,13 @@ class Home extends Component {
                                     <img src={require("./img/icon/suit.png")} alt="" />
                                     <a href="./services/groomwear"><h4>Groom Wear</h4></a>
                                     <p>Sherwani,Tuxes.</p>
+                                </div>
+                            </div>
+                            <div className="col-lg-4 col-md-6 col-sm-6">
+                                <div className="services__item">
+                                    <img src={require("./img/icon/package2.svg")} alt="" />
+                                    <a href="./package"><h4>Package</h4></a>
+                                    <p>Create Package</p>
                                 </div>
                             </div>
                         </div>

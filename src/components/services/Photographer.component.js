@@ -35,7 +35,8 @@ class Photographer extends Component {
                 <div className='row'>
                     {
                         this.state.data.map((item) => {
-                            return <div className='col-md-4'><Card props={item}></Card></div>
+                            item['service']='Photography'
+                            return <div className='col-md-4'><Card props={item} ></Card></div>
                         })
                     }
                 </div>

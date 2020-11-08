@@ -12,6 +12,9 @@ const session = require('express-session')
 var cors = require('cors')
 const initializePassport = require('./passport-config')
 
+const path = require('path')
+app.use('/static', express.static(path.join(__dirname, 'images')))
+
 app.use(cors())
 const users = []
 initializePassport(
@@ -42,9 +45,14 @@ connection.once('open', () => {
 const serviceRouter = require('./routes/service');
 app.use('/service', serviceRouter)
 
+const feedbackRouter = require('./routes/feedback')
+app.use('/feedback', feedbackRouter)
+
+const adminRouter = require('./routes/admin');
+app.use('/admin', adminRouter)
+
 app.post('/register', async (req, res) => {
   try {
-
     const hashedPassword = await bcrypt.hash(req.body.password, 10)
     const name = req.body.name
     const email = req.body.email
@@ -70,25 +78,48 @@ app.post('/register', async (req, res) => {
       });
   }
   catch {
-    res.josn('something went wrong,Please try again.')
+    res.json('something went wrong,Please try again.')
   }
 }
 )
+app.post('/register/:id', async (req, res) => {
+  try {
+    const filter = { email: req.params.id };
+    const update = req.body;
+    // `doc` is the document _before_ `update` was applied
+    
+    let doc = await User.findOneAndUpdate(filter, update,{new:true});
+    console.log(doc)
+    res.json({
+      "email": doc.email,
+      "name": doc.name,
+      "city": doc.city,
+      "gender": doc.gender,
+      "usertype": doc.usertype
+    })
+  }
+  catch {
+    res.status(500)
+    res.json('something went wrong,Please try again.')
+  }
+}
+)
+
 app.post('/login',
   passport.authenticate('local', {
     failureFlash: true
   }),
   async (req, res) => {
-    console.log(req)
     User.findOne({ email: req.body.email })
       .then(user => {
         res.json({
           "email": user.email,
-          "name" : user.name,
-          "city":user.city,
-          "gender":user.gender,
+          "name": user.name,
+          "city": user.city,
+          "gender": user.gender,
+          "usertype": user.usertype
         })
-    res.status(200)
+        res.status(200)
       })
   }
 )

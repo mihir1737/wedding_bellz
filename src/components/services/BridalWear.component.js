@@ -35,6 +35,7 @@ class BridalWear extends Component {
                 <div className='row'>
                     {
                         this.state.data.map((item) => {
+                            item['service']='Bridalwear'
                             return <div className='col-md-4'><Card props={item}></Card></div>
                         })
                     }

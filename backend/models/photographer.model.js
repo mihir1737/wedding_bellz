@@ -2,18 +2,17 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-const photographerSchema = new Schema({
-    Category_id: { type: String },
-    Type_id: { type: String },
+const PhotoGrapherSchema = new Schema({
     Name: { type: String },
     City: { type: String },
     Contact: { type: String },
     Price: { type: String },
-    Address: { type: String }
+    Description: { type: String },
+	img:{type:String}
 },{
-    collection:'Photographer'
+    collection:'PhotoGrapher'
 });
 
-const Photographer = mongoose.model('photographer', photographerSchema);
+const PhotoGrapher = mongoose.model('PhotoGrapher', PhotoGrapherSchema);
 
-module.exports = Photographer;
+module.exports = PhotoGrapher;

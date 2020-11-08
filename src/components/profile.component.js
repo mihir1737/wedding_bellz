@@ -12,24 +12,16 @@ class Profile extends Component {
         this.onSubmit = this.onSubmit.bind(this);
         this.onChangeEdit = this.onChangeEdit.bind(this);
 
-        if(localStorage.getItem('user')==null)
         this.state = {
             name: "",
             email: "",
             city: "",
-            gender: "",
-            edit: true,
-            errorMessage: ""
-        }
-        else
-        {
-            const user=JSON.parse(localStorage.getItem('user'))
-            this.state={
-                name:user.name,
-                email:user.email,
-                city:user.city,
-                gender:user.gender, ////////////////////////////update it....
-            }
+            gender: "", ////////////////////////////update it....
+            male: null,
+            edit: null,
+            edit: "",
+            errorMessage: "",
+            message: ""
         }
     }
     onChangeEdit(event) {
@@ -62,40 +54,67 @@ class Profile extends Component {
         this.setState({
             gender: event.target.value
         })
+        if(event.target.value==="male"){
+            this.setState({
+            male:true
+            })
+        }
+        else{
+            this.setState({
+                male:false
+                })        
+        }
+        console.log(this.state.gender+'  '+this.state.male)
+    }
+    componentDidMount() {
+        const user = JSON.parse(localStorage.getItem('user'))
+        this.setState({
+            name: user.name,
+            email: user.email,
+            city: user.city,
+            gender: user.gender, ////////////////////////////update it....
+            edit: true,
+            errorMessage: "",
+            message: ""
+        })
+        if (user.gender === "male") {
+            this.setState({ male: true })
+        }
+        if(user.gender==="female"){
+            this.setState({ male: false })
+        }
     }
     onSubmit(event) {
         event.preventDefault();
         const user = {
             name: this.state.name,
             email: this.state.email,
-            password: this.state.password,
             city: this.state.city,
             gender: this.state.gender
         }
-        const auth=JSON.parse(localStorage.getItem('user'));
-        
-        axios.post('http://localhost:8000/service/groomwear',
-        {
-            user,
-            auth
-        }
-        )
+        axios.post('http://localhost:8000/register/' + JSON.parse(localStorage.getItem('user')).email, user)
             .then(
                 res => {
-                    console.log('Response arrived'); console.log(res)
+                    console.log('Response arrived'); console.log(res.data)
+                    localStorage.setItem('user', JSON.stringify(res.data))
+                    this.setState({
+                        message: "Successfully Updated.",
+                        errorMessage: ""
+                    })
                 }
             )
             .catch(error => {
                 console.log(error)
                 this.setState(
                     {
-                        errorMessage: "Something went wrong,Please try again."
+                        message: "",
+                        errorMessage: "Email Already available"
                     })
             })
-
     }
-
     render() {
+        console.log(this.state.gender+'  '+this.state.male)
+
         return <div>
             <Form onSubmit={this.onSubmit}>
                 <div className="container">
@@ -104,7 +123,7 @@ class Profile extends Component {
                     <Form.Check
                         type="switch"
                         id="custom-switch"
-                        label="Edit Switch"
+                        label="Edit Profile"
                         value={this.state.edit}
                         onChange={this.onChangeEdit}
                     />
@@ -139,18 +158,17 @@ class Profile extends Component {
                         />
                     </div>
 
-                    <div onChange={this.onChangeGender.bind(this)}
-                    >
+                    <div onChange={this.onChangeGender.bind(this) }>
                         <label>Gender</label><br />
                         {this.state.edit ?
-                            <input type="radio" value="male" name="gender" disabled={'disabled'} /> :
-                            <input type="radio" value="male" name="gender" />
+                            <input type="radio" value="female" name="gender" disabled={'disabled'} checked={!this.state.male} /> :
+                            <input type="radio" value="female" name="gender" checked={!this.state.male} />
                         }
-                        <label>Female</label><br/>
+                        <label>Female</label><br />
 
                         {this.state.edit ?
-                            <input type="radio" value="female" name="gender" disabled={'disabled'} /> :
-                            <input type="radio" value="female" name="gender" />
+                            <input type="radio" value="male" name="gender" disabled={'disabled'} checked={this.state.male} /> :
+                            <input type="radio" value="male" name="gender" checked={this.state.male} />
                         }
                         <label>Male</label><br />
                     </div>

@@ -16,7 +16,6 @@ class MakeUp extends Component {
         axios.get('http://localhost:8000/service/makeup')
             .then(
                 res => {
-                    console.log(res.data)
                     this.setState({
                         data: res.data
                     })
@@ -36,6 +35,7 @@ class MakeUp extends Component {
                 <div className='row'>
                     {
                         this.state.data.map((item) => {
+                            item['service']='MakeUp'
                             return <div className='col-md-4'><Card props={item}></Card></div>
                         })
                     }

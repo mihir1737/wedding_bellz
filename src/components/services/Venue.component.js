@@ -35,6 +35,7 @@ class Venue extends Component {
                 <div className='row'>
                     {
                         this.state.data.map((item) => {
+                            item['service']='Venue'
                             return <div className='col-md-4'><Card props={item}></Card></div>
                         })
                     }

@@ -1,4 +1,4 @@
-import React, { Component,Redirect } from 'react'
+import React, { Component } from 'react'
 import axios from 'axios'
 
 class Login extends Component {
@@ -36,7 +36,8 @@ class Login extends Component {
                 console.log(res.data);
                 localStorage.setItem('user', JSON.stringify(res.data))
                 this.setState({
-                    message: 'Successfull log in'
+                    message: 'Successfull log in',
+                    errorMessage:""
                 })
                 document.cookie='user=apxmfknb45mk6n4kp5nkl2mg2pcw'
                     window.location = '/' 
@@ -61,7 +62,11 @@ class Login extends Component {
             )
     }
     render() {
-        return (
+        const user = JSON.parse(localStorage.getItem('user'))
+        if (user !== null) {
+            window.location = '/'
+        }
+        return (   
             <div>
                 <form onSubmit={this.onSubmit}>
                     <div className="container">
